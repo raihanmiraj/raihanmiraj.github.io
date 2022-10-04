@@ -632,7 +632,7 @@ border-radius: 5px;
     padding-top: 28px;
     display: flex;
     flex-direction: column;
-    padding:0px 2px
+    padding:20px 10px;
 }
 .skill-list-1{
     flex-basis: 100%;
