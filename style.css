@@ -345,6 +345,90 @@ border-radius: 6px;
 
 /* Skill End */
 
+/* portfolio card */
+.portfolio-image{
+    background: url(img/img.jpg);
+    width: 100%;
+    height: 200px;
+    
+    background-position: center!important; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover!important; /* Resize the background image to cover the entire container */
+}
+.portfolio-work-single{
+  width: 300px;
+  padding: 10px;
+  background: #091b33;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+.portfolio-work-single>h2{
+     padding-top: 5px; 
+    margin: 5px;
+}
+ .portfolio-work{
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    margin-bottom: 50px;
+}
+.contant-details{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.contact-description{
+    flex-basis: 50%;
+}
+.contact-here{
+    flex-basis: 50%;
+    padding: 30px 0px 0px 150px;
+}
+.contant-details>.contact-description{
+    padding: 50px 70px 0px 0px;
+    font-size: 20px;
+}
+.contact-description>p{
+    margin-bottom: 50px;
+}
+.contact-title{
+    font-size: 30px;
+    margin-top: 20px;
+}
+.contact-info{
+    font-size: 20px;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+height: 80px;
+background:#091b33;margin-top: 30px;
+}
+.thanks{
+    display: flex;flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+    font-size: 25px;
+}
+.copyright{
+    display: flex;flex-direction: column;
+    justify-content: center;
+    margin-right: 50px;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
  /* media query */
  @media only screen and (max-width: 800px) {
@@ -691,5 +775,35 @@ color: #FFFFFF;
 }
 
 /* Skill End */
+    .portfolio-work{
+        justify-content: center;
+    }
+
+    .contant-details{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .contact-description{
+        flex-basis: 50%;
+    }
+    .contact-here{
+        flex-basis: 50%;
+        padding: 10px;
+    }
+    .contant-details>.contact-description{
+        padding: 10px;
+        font-size: 20px;
+    }
+    .contact-description>p{
+        margin-bottom: 10px;
+    }
+    .contact-title{
+        font-size: 30px;
+        margin-top: 20px;
+    }
+    .contact-info{
+        font-size: 20px;
+    }
     
   }
