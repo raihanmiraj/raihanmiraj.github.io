@@ -3,7 +3,7 @@ import React from 'react';
 const Skills = () => {
     return (
         <>
-           <div id='skills' className="px-0 flex h-screen  items-center w-full">
+           <div id='skills' className="px-0 flex min-h-screen  items-center w-full">
         <div className=" flex md:flex-row flex-col gap-5 items-center justify-between h-auto w-full">
           
             <div
