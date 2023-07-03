@@ -9,12 +9,12 @@ const MyContact = () => {
 <div className='flex justify-center md:justify-start flex-col gap-5 md:w-[80%] px-5 md:px-0'>
   <p>I am interested in working with any company that thinks my skill will be helpful for them. If you are looking for someone like me, please let me know. Or you can just 'say hi' to me.</p>
  <div className='flex md:justify-start justify-center'>
- <button
-                        className="  md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md bg-[#0A69DC]  border border-[#0A69DC]"
-                        style={{ borderColor: "rgb(10, 105, 220)" }}
+ <a
+                 href='mailto:rsnmiraj@gmail.com'       className="  md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md bg-[#0A69DC]  border border-[#0A69DC]"
+                     
                       >
                       Contact Me
-                      </button>
+                      </a>
  </div>
 </div>
 

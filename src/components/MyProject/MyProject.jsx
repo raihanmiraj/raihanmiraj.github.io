@@ -2,30 +2,33 @@ import React from 'react';
 import ProjectCard from './ProjectCard';
 
 const MyProject = () => {
+  
+
+
   let myProject = [
     {
-      name : "Gradienta",
-      description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore illum aperiam id blanditiis atque saepe!",
-      image:"https://i.ibb.co/G2FLgFV/IMG-4649-03-2.jpg",
-      liveurl:'',
+      name : "Summer Learning School",
+      description:"A structured educational program during the summer that helps students enhance their academic skills and knowledge.",
+      image:"https://i.ibb.co/2tPP2mD/Capture.png",
+      liveurl:'http://summerlearning.netlify.app/',
       github:null,
-      language:['php', 'laravel', 'react', 'js']
+      language:['Node', 'express', 'react', 'js', 'mongodb']
     },
     {
-      name : "Gradienta",
-      description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore illum aperiam id blanditiis atque saepe!",
-      image:"https://i.ibb.co/G2FLgFV/IMG-4649-03-2.jpg",
-      liveurl:null,
-      github:null,
-      language:['php', 'laravel', 'react', 'js']
+      name : "Quiz Web App",
+      description:"An interactive online platform that offers quizzes to test knowledge and promote learning in an engaging way.",
+      image:"https://i.ibb.co/XY3YH5T/quiz.png",
+      liveurl:'https://aloronbd.pages.dev/',
+      github:'https://github.com/raihanmiraj/aloronbd',
+      language:['php', 'laravel', 'react', 'js', 'mysql']
     },
     {
-      name : "Gradienta",
-      description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore illum aperiam id blanditiis atque saepe!",
-      image:"https://i.ibb.co/G2FLgFV/IMG-4649-03-2.jpg",
+      name : "Incourse Management System",
+      description:"A comprehensive online tool designed to efficiently track, manage, and calculate student marks and progress throughout a course.",
+      image:"https://i.ibb.co/XpW7BPP/dashboard.png",
       liveurl:null,
-      github:null,
-      language:['php', 'laravel', 'react', 'js']
+      github:"https://github.com/raihanmiraj/Incourse-Management-System-JavaFx",
+      language:['java', 'javafx', 'mysql' ]
     }
   ]
     return (
