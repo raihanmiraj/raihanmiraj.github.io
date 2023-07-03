@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getTheme } from '../../utils/getTheme';
 
 const Navbar = () => {
    
- 
+ const [showNavbar, setShowNavbar] = useState(false)
   const {darkMode, handleDarkMode} = getTheme()
     return (
         <>
@@ -14,7 +14,7 @@ const Navbar = () => {
                             M
                         </span>
                     </a>
-                    <div className="md:hidden cursor-pointer">
+                    <div onClick={()=>setShowNavbar((prev)=>!prev)} className="md:hidden cursor-pointer">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -31,7 +31,7 @@ const Navbar = () => {
                         </svg>
                     </div>
                 </div>
-                <div className="hidden md:flex md:items-center justify-between ">
+                <div className={`${showNavbar?'':'hidden' }   md:flex md:items-center justify-between`}>
                     <nav>
                         <ul className="flex flex-col md:flex-row items-center  gap-5 font-medium cursor-pointer">
                             <li className=" hover:text-[#0A69DC]">Home</li>
@@ -74,7 +74,7 @@ const Navbar = () => {
                 </div>
                 <div className="hidden md:block pl-5">
                     <a
-                        href="https://drive.google.com/file/d/1-n17DQGbrK5KcBjFyuE0iDURW_dfFZVn/view?usp=sharing"
+                        href="https://drive.google.com/file/d/1Z4CkRM9Mj5EsHFYmlMvLMqLnGujFcGgS/view?usp=sharing"
                         target="_blank"
                         rel="noreferrer"
                     >

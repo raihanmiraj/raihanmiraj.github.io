@@ -5,7 +5,7 @@ const Aboutme = () => {
         <>
             <div id='aboutme' className="min-h-screen flex justify-center items-center md:px-2 mt-12 md:mt-0">
         <div className="md:flex md:flex-row flex flex-col-reverse items-center justify-between h-full gap-5 md:gap-0 md:mt-0">
-          <div className="flex flex-col md:pl-24 gap-5 md:basis-[45%] md:ml-16">
+          <div className="flex flex-col md:pl-24 gap-8 md:basis-[45%] md:ml-16">
             <p className="text-sm md:text-lg text-center md:text-left   leading-loose px-3 md:px-0">
             Hello! I'm Raihan Miraj, a passionate software engineer. I develop web applications, mobile applications, and desktop applications. My core skill is based on JavaScript and I love to do most of the things using JavaScript. I love to make the web more open to the world. I'm doing BSc in Computer Science Engineering from Mymensingh Engineering College. I am available for any kind of job opportunity that suits my interests.
             </p>

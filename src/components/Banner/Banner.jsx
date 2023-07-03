@@ -9,7 +9,7 @@ const Banner = () => {
            <div className="md:flex md:flex-col flex flex-col-reverse md:gap-y-20 gap-y-5 md:items-center">
              <div className="flex  items-center md:flex-col gap-3  text-xl cursor-pointer justify-center">
                <a
-                 className="hover:text-[#000]"
+                 className=""
                  href="https://github.com/itznur07"
                  target="_blank"
                  rel="noreferrer"
@@ -27,7 +27,7 @@ const Banner = () => {
                  </svg>
                </a>
                <a
-                 className="hover:text-[#000]"
+                 className=""
                  href="https://www.linkedin.com/in/itznur07/"
                  target="_blank"
                  rel="noreferrer"
@@ -45,7 +45,7 @@ const Banner = () => {
                  </svg>
                </a>
                <a
-                 className="hover:text-[#000]"
+                 className=""
                  href="https://twitter.com/itznur07"
                  target="_blank"
                  rel="noreferrer"
@@ -63,7 +63,7 @@ const Banner = () => {
                  </svg>
                </a>
                <a
-                 className="hover:text-[#000]"
+                 className=""
                  href="https://itznur07.medium.com/"
                  target="_blank"
                  rel="noreferrer"
@@ -152,7 +152,7 @@ const Banner = () => {
              </div>
              <div className="flex items-center gap-4 mt-5">
                <a
-                 href="https://drive.google.com/file/d/1-n17DQGbrK5KcBjFyuE0iDURW_dfFZVn/view?usp=sharing"
+                 href="https://drive.google.com/file/d/1Z4CkRM9Mj5EsHFYmlMvLMqLnGujFcGgS/view?usp=sharing"
                  target="_blank"
                  rel="noreferrer"
                >
