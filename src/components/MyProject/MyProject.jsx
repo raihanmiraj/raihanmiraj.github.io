@@ -85,7 +85,7 @@ const MyProject = () => {
       
       </div>  
       <div className='flex justify-center'>
-        <a href='https://github.com/raihanmiraj' class=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md bg-[#0A69DC]  border border-[#0A69DC]"  >More Projects</a>
+        <a href='https://github.com/raihanmiraj' class=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md bg-[#0A69DC]  border border-[#0A69DC] mt-5"  >More Projects</a>
         </div>
         </>
     );
