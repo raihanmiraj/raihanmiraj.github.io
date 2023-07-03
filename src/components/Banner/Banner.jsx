@@ -10,7 +10,7 @@ const Banner = () => {
              <div className="flex  items-center md:flex-col gap-3  text-xl cursor-pointer justify-center">
                <a
                  className=""
-                 href="https://github.com/itznur07"
+                 href="https://github.com/raihanmiraj"
                  target="_blank"
                  rel="noreferrer"
                >
@@ -28,7 +28,7 @@ const Banner = () => {
                </a>
                <a
                  className=""
-                 href="https://www.linkedin.com/in/itznur07/"
+                 href="https://www.linkedin.com/in/raihanmiraj/"
                  target="_blank"
                  rel="noreferrer"
                >
@@ -46,7 +46,7 @@ const Banner = () => {
                </a>
                <a
                  className=""
-                 href="https://twitter.com/itznur07"
+                 href="https://twitter.com/raihanmiraj"
                  target="_blank"
                  rel="noreferrer"
                >
@@ -64,7 +64,7 @@ const Banner = () => {
                </a>
                <a
                  className=""
-                 href="https://itznur07.medium.com/"
+                 href="https://raihanmiraj.medium.com/"
                  target="_blank"
                  rel="noreferrer"
                >

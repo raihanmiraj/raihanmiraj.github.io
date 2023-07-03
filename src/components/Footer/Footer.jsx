@@ -34,7 +34,7 @@ const Footer = () => {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        href="https://github.com/zonayedpca/zonayed.me"
+        href="https://github.com/raihanmiraj"
       >
         <p className='flex items-center gap-1'>
           <svg
@@ -55,7 +55,7 @@ const Footer = () => {
     <a
         target="_blank"
         rel="noopener noreferrer"
-        href="https://github.com/zonayedpca/zonayed.me"
+        href="https://github.com/raihanmiraj"
       >
         <p className='flex items-center gap-1'>
         <svg
