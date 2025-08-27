@@ -75,7 +75,7 @@ export default function Header() {
 
         <div className="hidden md:block pl-5">
           <a 
-            href="https://drive.google.com/file/d/1-n17DQGbrK5KcBjFyuE0iDURW_dfFZVn/view?usp=sharing" 
+            href="/resume.pdf" 
             target="_blank" 
             rel="noreferrer"
           >
@@ -110,7 +110,7 @@ export default function Header() {
                 </li>
                 <li className="w-full text-center py-2">
                   <a 
-                    href="https://drive.google.com/file/d/1-n17DQGbrK5KcBjFyuE0iDURW_dfFZVn/view?usp=sharing" 
+                    href="/resume.pdf" 
                     target="_blank" 
                     rel="noreferrer"
                     onClick={toggleMobileMenu}

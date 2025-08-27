@@ -14,7 +14,7 @@ export default async function HomeBlogs() {
   return (
     <>
       {/* Blog Cards Grid with Professional Design */}
-      <div className="grid md:grid-cols-3 gap-8 mb-12">
+      <div className="grid md:grid-cols-3 gap-8 mb-8">
         {blogs.slice(0, 3).map((b: { _id: string; slug: string; title: string; image?: string; metaDescription?: string }) => (
           <Link 
             key={b._id} 
