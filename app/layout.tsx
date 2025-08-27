@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ConditionalLayout from "./components/ConditionalLayout";
+import LoadingBar from "./components/LoadingBar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,6 +30,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <LoadingBar />
         <ConditionalLayout>
           {children}
         </ConditionalLayout>
