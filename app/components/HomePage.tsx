@@ -153,7 +153,7 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
         </div>
 
         {/* About Section */}
-        <section id="about" className="h-screen flex items-center px-5 bg-[#0a1628]">
+        <section id="about" className="md:h-screen flex items-center px-5 bg-[#0a1628]">
           <div className="max-w-7xl mx-auto w-full">
             {/* Section Header */}
             <div className="text-center mb-8">
@@ -165,7 +165,7 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
             </div>
 
             {/* Main Content Grid - Golden Ratio Layout */}
-            <div className="grid lg:grid-cols-[61.8%_38.2%] gap-12 items-center h-[calc(90vh-150px)]">
+            <div className="grid lg:grid-cols-[61.8%_38.2%] gap-12 items-center md:h-[calc(90vh-150px)]">
               {/* Text Content - Takes larger portion (golden ratio) */}
               <div className="space-y-6 flex flex-col justify-center">
                 <div className="relative">
@@ -233,17 +233,17 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
               </div>
 
               {/* Circular Image Section - Takes smaller portion (golden ratio) */}
-              <div className="relative flex justify-center items-center h-full">
+              <div className="relative flex justify-center items-center h-full order-1 lg:order-2 mb-6 lg:mb-0">
                 {/* Main Circular Image Container */}
-                <div className="relative w-80 h-80">
+                <div className="relative w-64 h-64 md:w-80 md:h-80">
                   {/* Outer Decorative Ring */}
                   <div className="absolute inset-0 border-2 border-[#64ffda]/30 rounded-full animate-spin-slow"></div>
 
                   {/* Middle Ring */}
-                  <div className="absolute inset-4 border border-[#64ffda]/20 rounded-full"></div>
+                  <div className="absolute inset-3 md:inset-4 border border-[#64ffda]/20 rounded-full"></div>
 
                   {/* Inner Image Container */}
-                  <div className="absolute inset-8 rounded-full overflow-hidden bg-gradient-to-br from-[#64ffda]/20 to-[#111A28] p-2">
+                  <div className="absolute inset-6 md:inset-8 rounded-full overflow-hidden bg-gradient-to-br from-[#64ffda]/20 to-[#111A28] p-2">
                     <div className="relative w-full h-full rounded-full overflow-hidden bg-[#111A28]">
                       <Image
                         src="https://i.ibb.co/G2FLgFV/IMG-4649-03-2.jpg"
@@ -260,10 +260,10 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
                   </div>
 
                   {/* Floating Decorative Elements */}
-                  <div className="absolute top-[15%] right-[15%] w-6 h-6 bg-[#64ffda]/60 rounded-full animate-pulse"></div>
-                  <div className="absolute bottom-[20%] left-[10%] w-4 h-4 bg-[#64ffda]/40 rounded-full animate-pulse delay-500"></div>
-                  <div className="absolute top-[45%] left-[5%] w-3 h-3 bg-[#64ffda]/80 rounded-full animate-pulse delay-1000"></div>
-                  <div className="absolute bottom-[45%] right-[8%] w-3 h-3 bg-[#64ffda]/50 rounded-full animate-pulse delay-700"></div>
+                  <div className="absolute top-[15%] right-[15%] w-4 h-4 md:w-6 md:h-6 bg-[#64ffda]/60 rounded-full animate-pulse"></div>
+                  <div className="absolute bottom-[20%] left-[10%] w-3 h-3 md:w-4 md:h-4 bg-[#64ffda]/40 rounded-full animate-pulse delay-500"></div>
+                  <div className="absolute top-[45%] left-[5%] w-2 h-2 md:w-3 md:h-3 bg-[#64ffda]/80 rounded-full animate-pulse delay-1000"></div>
+                  <div className="absolute bottom-[45%] right-[8%] w-2 h-2 md:w-3 md:h-3 bg-[#64ffda]/50 rounded-full animate-pulse delay-700"></div>
 
                   {/* Code Symbols Around Circular Image */}
                   <div className="absolute top-[10%] left-[20%] text-[#64ffda]/40 font-mono text-lg animate-bounce delay-300">&lt;/&gt;</div>
@@ -290,7 +290,7 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="h-screen py-20 px-5 bg-[#0a1628]">
+        <section id="skills" className="md:h-screen py-20 px-5 bg-[#0a1628]">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-12 text-center">Skills & Technologies</h2>
 
@@ -337,23 +337,23 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="h-screen py-20 px-5">
+        <section id="projects" className="py-12 md:py-20 md:h-screen px-5">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-12 text-center">Featured Projects</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-8 md:mb-12 text-center">Featured Projects</h2>
             {projectsSlot}
           </div>
         </section>
 
         {/* Blog Section */}
-        <section id="blogs" className="h-screen py-20 px-5 bg-[#0a1628]">
+        <section id="blogs" className="py-12 md:py-20 md:h-screen px-5 bg-[#0a1628]">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-12 text-center">Latest Blog Posts</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-8 md:mb-12 text-center">Latest Blog Posts</h2>
             {blogsSlot}
           </div>
         </section>
 
         {/* Contact Section - Compact Professional Design */}
-        <section id="contact" className="h-screen py-12 px-5 relative overflow-hidden">
+        <section id="contact" className="py-12 md:py-12 md:h-screen px-5 relative overflow-hidden">
           {/* Subtle background elements */}
           <div className="absolute inset-0 bg-[#111A28]"></div>
           <div className="absolute top-10 right-1/3 w-32 h-32 bg-[#64ffda]/8 rounded-full blur-2xl"></div>
@@ -361,26 +361,26 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
           
           <div className="max-w-6xl mx-auto relative z-10 h-full flex flex-col">
             {/* Compact Section Header */}
-            <div className="text-center mb-8">
+            <div className="text-center mb-6 md:mb-8">
               <span className="text-[#64ffda] font-mono text-sm mb-1 block">04.</span>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Get In Touch</h2>
               <div className="w-20 h-[1px] bg-[#64ffda]/60 mx-auto mb-4"></div>
-              <p className="text-gray-300 max-w-xl mx-auto text-base">
+              <p className="text-gray-300 max-w-xl mx-auto text-sm md:text-base px-4">
                 Let&apos;s discuss your next project or just say hello!
               </p>
             </div>
 
             {/* Compact Golden Ratio Layout */}
-            <div className="flex-1 grid lg:grid-cols-[65%_35%] gap-8 items-start">
+            <div className="flex-1 grid lg:grid-cols-[65%_35%] gap-6 md:gap-8 items-start">
               {/* Left Side - Compact Contact Form */}
-              <div className="relative">
-                <div className="bg-gray-800/40 rounded-xl p-6 border border-gray-700/40">
+              <div className="relative order-2 lg:order-1">
+                <div className="bg-gray-800/40 rounded-xl p-4 md:p-6 border border-gray-700/40">
                   <ContactForm />
                 </div>
               </div>
 
               {/* Right Side - Compact Contact Info */}
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4 order-1 lg:order-2">
                 {/* Contact Methods - Compact */}
                 <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700/30">
                   <h3 className="text-lg font-semibold text-[#64ffda] mb-4 flex items-center gap-2">
