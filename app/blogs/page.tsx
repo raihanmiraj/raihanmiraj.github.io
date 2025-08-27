@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const revalidate = 60;
 
@@ -28,7 +29,7 @@ export default async function BlogsPage() {
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center gap-2 text-sm mb-8">
-            <a href="/" className="text-gray-400 hover:text-[#64ffda] transition-colors">Home</a>
+            <Link href="/" className="text-gray-400 hover:text-[#64ffda] transition-colors">Home</Link>
             <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>

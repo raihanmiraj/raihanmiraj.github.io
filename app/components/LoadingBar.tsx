@@ -1,23 +1,22 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 export default function LoadingBar() {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const pathname = usePathname();
-  const router = useRouter();
   const loadingRef = useRef(false);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
 
   // Clear all timers
-  const clearAllTimers = () => {
+  const clearAllTimers = useCallback(() => {
     timersRef.current.forEach(timer => clearTimeout(timer));
     timersRef.current = [];
-  };
+  }, []);
 
   // Start loading progress
-  const startLoading = () => {
+  const startLoading = useCallback(() => {
     if (loadingRef.current) return; // Prevent multiple starts
     
     loadingRef.current = true;
@@ -31,10 +30,10 @@ export default function LoadingBar() {
     const timer3 = setTimeout(() => setProgress(75), 500);
     
     timersRef.current = [timer1, timer2, timer3];
-  };
+  }, [clearAllTimers]);
 
   // Complete loading
-  const completeLoading = () => {
+  const completeLoading = useCallback(() => {
     if (!loadingRef.current) return; // Not loading
     
     clearAllTimers();
@@ -47,7 +46,7 @@ export default function LoadingBar() {
     }, 300);
     
     timersRef.current = [finalTimer];
-  };
+  }, [clearAllTimers]);
 
   useEffect(() => {
     // Listen for navigation events by intercepting link clicks
@@ -82,14 +81,14 @@ export default function LoadingBar() {
       window.removeEventListener('popstate', handlePopState);
       clearAllTimers();
     };
-  }, [pathname]);
+  }, [pathname, startLoading, clearAllTimers]);
 
   // Complete loading when pathname changes (page loaded)
   useEffect(() => {
     if (loadingRef.current) {
       completeLoading();
     }
-  }, [pathname]);
+  }, [pathname, completeLoading]);
 
   // Handle page load completion
   useEffect(() => {
@@ -106,7 +105,7 @@ export default function LoadingBar() {
       window.addEventListener('load', handleLoad);
       return () => window.removeEventListener('load', handleLoad);
     }
-  }, []);
+  }, [completeLoading]);
 
   if (!loading && progress === 0) return null;
 

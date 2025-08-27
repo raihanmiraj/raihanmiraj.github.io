@@ -212,7 +212,7 @@ export default async function ProjectsPage() {
               Interested in <span className="text-[#64ffda]">Collaboration</span>?
             </h3>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-              I'm always open to discussing new opportunities, innovative projects, and ways we can work together to create something amazing.
+              I&apos;m always open to discussing new opportunities, innovative projects, and ways we can work together to create something amazing.
             </p>
             <Link 
               href="/#contact" 
