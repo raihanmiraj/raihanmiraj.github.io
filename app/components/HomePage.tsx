@@ -337,7 +337,7 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="py-12 md:py-20 md:h-screen px-5">
+        <section id="projects" className="py-12 md:py-16 md:h-screen px-5">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-8 md:mb-12 text-center">Featured Projects</h2>
             {projectsSlot}
@@ -345,7 +345,7 @@ export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: R
         </section>
 
         {/* Blog Section */}
-        <section id="blogs" className="py-12 md:py-20 md:h-screen px-5 bg-[#0a1628]">
+        <section id="blogs" className="py-12 md:py-16 md:h-screen px-5 bg-[#0a1628]">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-8 md:mb-12 text-center">Latest Blog Posts</h2>
             {blogsSlot}
