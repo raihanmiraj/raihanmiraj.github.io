@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/db";
-import { Project } from "@/models/Project";
+import { Blog } from "@/models/Blog";
 
-export const revalidate = 60;
+export const revalidate = 60; // ISR for GET
 
 export async function GET() {
   await connectToDatabase();
-  const projects = await Project.find({}).sort({ createdAt: -1 }).lean();
-  return NextResponse.json(projects);
+  const blogs = await Blog.find({ published: true }).sort({ createdAt: -1 }).lean();
+  return NextResponse.json(blogs);
 }
 
 export async function POST(req: NextRequest) {
   await connectToDatabase();
   const body = await req.json();
-  const created = await Project.create(body);
+  const created = await Blog.create(body);
   return NextResponse.json(created, { status: 201 });
 }
 
