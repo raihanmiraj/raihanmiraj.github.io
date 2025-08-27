@@ -8,10 +8,10 @@ if (!JWT_SECRET) {
 }
 
 export function signJwt(payload: object, expiresIn: string = "7d") {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn } as jwt.SignOptions);
 }
 
-export function verifyJwt<T = any>(token: string): T | null {
+export function verifyJwt<T = object>(token: string): T | null {
   try {
     return jwt.verify(token, JWT_SECRET) as T;
   } catch {

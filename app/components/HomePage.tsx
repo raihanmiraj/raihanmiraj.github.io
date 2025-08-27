@@ -2,178 +2,519 @@
 import Image from "next/image";
 import Link from "next/link";
 import ContactForm from "./ContactForm";
+import { useState } from "react";
 
 export default function HomePage({ projectsSlot, blogsSlot }: { projectsSlot?: React.ReactNode; blogsSlot?: React.ReactNode }) {
+  const [activeSkillCategory, setActiveSkillCategory] = useState('Web');
+
+  // Skills data structure as requested
+  const skillsData = {
+    Web: [
+      { title: "JavaScript", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", level: "Intermediate" },
+      { title: "React", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", level: "Intermediate" },
+      { title: "Next.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", level: "Intermediate" },
+      { title: "Express.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", level: "Intermediate" },
+      { title: "MongoDB", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", level: "Intermediate" },
+      { title: "Firebase", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg", level: "Intermediate" },
+      { title: "Tailwind", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg", level: "Advanced" },
+      { title: "Node.js", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", level: "Intermediate" },
+      { title: "TypeScript", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", level: "Intermediate" }
+    ],
+    Tools: [
+      { title: "Git", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", level: "Intermediate" },
+      { title: "GitHub", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", level: "Advanced" },
+      { title: "VS Code", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", level: "Advanced" },
+      { title: "Figma", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", level: "Intermediate" },
+      { title: "Vercel", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg", level: "Intermediate" },
+      { title: "Docker", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", level: "Beginner" }
+    ],
+    Others: [
+      { title: "Photoshop", img: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg", level: "Intermediate" },
+      { title: "AI Tools", img: "https://cdn-icons-png.flaticon.com/512/8449/8449735.png", level: "Intermediate" },
+      { title: "Content Creation", img: "https://cdn-icons-png.flaticon.com/512/2784/2784461.png", level: "Advanced" },
+      { title: "SEO", img: "https://cdn-icons-png.flaticon.com/512/3017/3017877.png", level: "Intermediate" },
+      { title: "UI/UX Design", img: "https://cdn-icons-png.flaticon.com/512/4341/4341139.png", level: "Intermediate" },
+      { title: "Database Design", img: "https://cdn-icons-png.flaticon.com/512/2906/2906274.png", level: "Intermediate" }
+    ]
+  };
+
+  const skillCategories = ['Web', 'Tools', 'Others'];
   return (
     <div id="root">
       <div className="bg-[#111A28] text-white">
-        <div>
-          <div className="progress-bar" style={{ backgroundColor: "#0A69DC", transform: "scaleX(0) translateZ(0)" }} />
-          <header className="md:flex md:flex-row md:justify-between items-center flex flex-col  justify-center    py-8 px-5 md:px-16">
-            <div className="flex justify-between items-center w-full">
-              <Link href="/"><span className="text-xl font-semibold text-[#fff] px-3 py-2 rounded-full bg-blue-600">M</span></Link>
-              <div className="md:hidden cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#0A69DC"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <div id="home" className="relative overflow-hidden">
+          <div className="grid md:grid-cols-[38.2%_61.8%] h-[85vh] items-center">
+            {/* Left Side - Professional Icon Layout */}
+            <div className="relative hidden md:flex items-center justify-center">
+              {/* Main Icon Container */}
+              <div className="relative w-80 h-80">
+                {/* Center Circle */}
+                <div className="absolute inset-0 border border-[#64ffda]/20 rounded-full"></div>
+                <div className="absolute inset-4 border border-[#64ffda]/10 rounded-full"></div>
+
+                {/* Social Icons positioned at golden ratio points */}
+                <div className="absolute top-[23.6%] right-[23.6%] group">
+                  <div className="relative">
+                    <div className="w-16 h-16 bg-[#64ffda]/10 rounded-full flex items-center justify-center border border-[#64ffda]/30 group-hover:bg-[#64ffda]/20 transition-all duration-300">
+                      <a href="https://github.com/itznur07" target="_blank" rel="noreferrer" className="text-[#64ffda] hover:text-white transition-colors">
+                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                      </a>
+                    </div>
+                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-[#64ffda]/60">GitHub</div>
+                  </div>
+                </div>
+
+                <div className="absolute bottom-[23.6%] right-[38.2%] group">
+                  <div className="relative">
+                    <div className="w-16 h-16 bg-[#64ffda]/10 rounded-full flex items-center justify-center border border-[#64ffda]/30 group-hover:bg-[#64ffda]/20 transition-all duration-300">
+                      <a href="https://www.linkedin.com/in/itznur07" target="_blank" rel="noreferrer" className="text-[#64ffda] hover:text-white transition-colors">
+                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                      </a>
+                    </div>
+                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-[#64ffda]/60">LinkedIn</div>
+                  </div>
+                </div>
+
+                <div className="absolute top-[38.2%] left-[15%] group">
+                  <div className="relative">
+                    <div className="w-16 h-16 bg-[#64ffda]/10 rounded-full flex items-center justify-center border border-[#64ffda]/30 group-hover:bg-[#64ffda]/20 transition-all duration-300">
+                      <a href="https://youtube.com/@itznur07" target="_blank" rel="noreferrer" className="text-[#64ffda] hover:text-white transition-colors">
+                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                      </a>
+                    </div>
+                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-[#64ffda]/60">YouTube</div>
+                  </div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute top-[61.8%] left-[61.8%] w-2 h-2 bg-[#64ffda]/40 rounded-full animate-pulse"></div>
+                <div className="absolute top-[15%] left-[45%] w-1 h-1 bg-[#64ffda]/60 rounded-full animate-pulse delay-700"></div>
+                <div className="absolute bottom-[15%] left-[25%] w-1.5 h-1.5 bg-[#64ffda]/30 rounded-full animate-pulse delay-1000"></div>
+              </div>
+
+              {/* Vertical Line */}
+              <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
+                <div className="h-32 w-[1px] bg-gradient-to-b from-transparent via-[#64ffda]/50 to-transparent"></div>
               </div>
             </div>
-            <div className="hidden md:flex md:items-center justify-between ">
-              <nav>
-                <ul className="flex flex-col md:flex-row items-center  gap-5 font-medium cursor-pointer">
-                  <li className=" hover:text-[#0A69DC]">Home</li>
-                  <li className=" hover:text-[#0A69DC]">About</li>
-                  <li className=" hover:text-[#0A69DC]">Skills</li>
-                  <li className=" hover:text-[#0A69DC]">Project</li>
-                  <li className=" hover:text-[#0A69DC]">Contact</li>
-                </ul>
-              </nav>
+
+            {/* Right Side - Content */}
+            <div className="px-5 md:px-12 lg:px-20">
+              <div className="md:text-left text-center">
+                <div className="mb-4">
+                  <span className="text-[#64ffda] text-lg font-mono">Hi, my name is</span>
+                </div>
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white md:leading-[1.1] leading-[1.2] mb-4">
+                  Raihan Miraj
+                </h1>
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-400 md:leading-[1.1] leading-[1.2] mb-6">
+                  I build things for the web.
+                </h2>
+                <p className="mt-6 text-lg text-gray-400 max-w-2xl leading-relaxed">
+                  I&apos;m a full-stack developer specializing in building exceptional digital experiences.
+                  Currently focused on creating accessible, human-centered products.
+                </p>
+                <div className="mt-12 flex flex-col sm:flex-row gap-6">
+                  <Link href="#projects" className="group relative overflow-hidden bg-transparent border-2 border-[#64ffda] text-[#64ffda] px-8 py-4 font-mono text-sm hover:bg-[#64ffda]/10 transition-all duration-300">
+                    <span className="relative z-10">Check out my work!</span>
+                  </Link>
+                  <Link href="#contact" className="text-gray-300 hover:text-[#64ffda] transition-colors duration-300 px-8 py-4 font-mono text-sm border-b border-transparent hover:border-[#64ffda]">
+                    Get In Touch →
+                  </Link>
+                </div>
+              </div>
             </div>
-            <div className="hidden md:block pl-5">
-              <a href="https://drive.google.com/file/d/1-n17DQGbrK5KcBjFyuE0iDURW_dfFZVn/view?usp=sharing" target="_blank" rel="noreferrer">
-                <div><button className=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md border border-[#0A69DC]  ">Resume</button></div>
+
+            {/* Mobile Social Icons */}
+            <div className="md:hidden flex justify-center gap-6 mt-8 px-5">
+              <a href="https://github.com/itznur07" target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#64ffda]/10 rounded-full flex items-center justify-center border border-[#64ffda]/30 text-[#64ffda] hover:text-white hover:bg-[#64ffda]/20 transition-all duration-300">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/in/itznur07" target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#64ffda]/10 rounded-full flex items-center justify-center border border-[#64ffda]/30 text-[#64ffda] hover:text-white hover:bg-[#64ffda]/20 transition-all duration-300">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+              </a>
+              <a href="https://youtube.com/@itznur07" target="_blank" rel="noreferrer" className="w-12 h-12 bg-[#64ffda]/10 rounded-full flex items-center justify-center border border-[#64ffda]/30 text-[#64ffda] hover:text-white hover:bg-[#64ffda]/20 transition-all duration-300">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
               </a>
             </div>
-          </header>
+          </div>
+        </div>
 
-          <div className="md:flex items-center">
-            <div className="flex items-center flex-col-reverse md:flex-row  md:justify-start h-[85vh] justify-center">
-              <div className="md:flex md:flex-col flex flex-col-reverse md:gap-y-20 gap-y-5 md:items-center">
-                <div className="flex  items-center md:flex-col gap-3  text-xl cursor-pointer justify-center">
-                  <a className="hover:text-[#000]" href="https://github.com/itznur07" target="_blank" rel="noreferrer"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" /></svg></a>
-                  <a className="hover:text-[#000]" href="https://www.linkedin.com/in/itznur07/" target="_blank" rel="noreferrer"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></svg></a>
-                  <a className="hover:text-[#000]" href="https://twitter.com/itznur07" target="_blank" rel="noreferrer"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" /></svg></a>
-                  <a className="hover:text-[#000]" href="https://itznur07.medium.com/" target="_blank" rel="noreferrer"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 32v448h448V32H0zm372.2 106.1l-24 23c-2.1 1.6-3.1 4.2-2.7 6.7v169.3c-.4 2.6.6 5.2 2.7 6.7l23.5 23v5.1h-118V367l24.3-23.6c2.4-2.4 2.4-3.1 2.4-6.7V199.8l-67.6 171.6h-9.1L125 199.8v115c-.7 4.8 1 9.7 4.4 13.2l31.6 38.3v5.1H71.2v-5.1l31.6-65.1V392c.7-6.3-1.7-12.4-6.5-16.7l-47.8-57.6V309H411l114.6 251.5 100.9-251.3H768v8.5z" /></svg></a>
+        {/* About Section */}
+        <section id="about" className="h-screen flex items-center px-5 bg-[#0a1628]">
+          <div className="max-w-7xl mx-auto w-full">
+            {/* Section Header */}
+            <div className="text-center mb-8">
+              <div className="inline-block">
+                <span className="text-[#64ffda] font-mono text-lg mb-2 block">01.</span>
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">About Me</h2>
+                <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-[#64ffda] to-transparent mx-auto"></div>
+              </div>
+            </div>
+
+            {/* Main Content Grid - Golden Ratio Layout */}
+            <div className="grid lg:grid-cols-[61.8%_38.2%] gap-12 items-center h-[calc(90vh-150px)]">
+              {/* Text Content - Takes larger portion (golden ratio) */}
+              <div className="space-y-6 flex flex-col justify-center">
+                <div className="relative">
+                  {/* Decorative Quote Mark */}
+                  <div className="absolute -top-4 -left-4 text-6xl text-[#64ffda]/20 font-serif">&ldquo;</div>
+
+                  <div className="relative z-10 space-y-6">
+                    <p className="text-xl text-gray-300 leading-relaxed font-light">
+                      Hello! I&apos;m <span className="text-[#64ffda] font-semibold">Raihan Miraj</span>, a passionate full-stack developer
+                      based in <span className="text-[#64ffda]">Bangladesh</span>. I specialize in creating
+                      exceptional digital experiences that combine beautiful design with robust functionality.
+                    </p>
+
+                    <p className="text-lg text-gray-400 leading-relaxed">
+                      My journey in web development started with curiosity and has evolved into a
+                      passion for building products that make a difference. I believe in writing
+                      clean, efficient code and creating user-centered solutions.
+                    </p>
+
+                    <p className="text-lg text-gray-400 leading-relaxed">
+                      When I&apos;m not coding, you&apos;ll find me exploring new technologies, contributing to
+                      open-source projects, or sharing knowledge through my blog and YouTube channel.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-center  md:-rotate-90 text-md  font-medium mt-12 md:mt-0" style={{ color: "#0A69DC" }}>
-                  <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
-                  <span className="uppercase   border py-0 px-5 rounded-md font-bold">Follow me</span>
-                  <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
+
+                {/* Stats/Highlights */}
+                <div className="grid md:grid-cols-2 gap-8 pt-6 border-t border-gray-700/50">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-[#64ffda] mb-4">Background</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <div className="w-2 h-2 bg-[#64ffda] rounded-full"></div>
+                        <span>🎓 Computer Science Student</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <div className="w-2 h-2 bg-[#64ffda] rounded-full"></div>
+                        <span>💼 Freelance Developer</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <div className="w-2 h-2 bg-[#64ffda] rounded-full"></div>
+                        <span>🌍 Based in Bangladesh</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-[#64ffda] mb-4">Interests</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <div className="w-2 h-2 bg-[#64ffda] rounded-full"></div>
+                        <span>💡 Problem Solving</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <div className="w-2 h-2 bg-[#64ffda] rounded-full"></div>
+                        <span>🚀 Open Source</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <div className="w-2 h-2 bg-[#64ffda] rounded-full"></div>
+                        <span>📚 Continuous Learning</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col   md:space-y-3   items-center md:items-start">
-                <p className="text-xl font-medium" style={{ color: "#0A69DC" }}>Hello I'm</p>
-                <p className="md:text-7xl text-5xl font-bold  ">Raihan Miraj</p>
-                <p className="md:text-2xl text-xl font-medium mt-5">Full Stack Developer</p>
-                <div className="flex md:flex-row flex-col items-center  gap-2 md:text-xl text-sm text-gray-500 font-medium "><small className="text-md hidden md:inline">•</small><span> Web Developer</span><small className="text-md hidden md:inline">•</small><span>Programmer</span><small className="text-md hidden md:inline">•</small><span> Software Engineer</span></div>
-                <div className="flex items-center gap-4 mt-5">
-                  <a href="https://drive.google.com/file/d/1-n17DQGbrK5KcBjFyuE0iDURW_dfFZVn/view?usp=sharing" target="_blank" rel="noreferrer"><div><button className="  md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md bg-[#0A69DC]  border border-[#0A69DC]" style={{ borderColor: "#0A69DC" }}>Get Resume</button></div></a>
-                  <div><button className="  md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md border border-[#0A69DC]  border border-[#0A69DC]" style={{ borderColor: "#0A69DC" }}>About me</button></div>
+
+              {/* Circular Image Section - Takes smaller portion (golden ratio) */}
+              <div className="relative flex justify-center items-center h-full">
+                {/* Main Circular Image Container */}
+                <div className="relative w-80 h-80">
+                  {/* Outer Decorative Ring */}
+                  <div className="absolute inset-0 border-2 border-[#64ffda]/30 rounded-full animate-spin-slow"></div>
+
+                  {/* Middle Ring */}
+                  <div className="absolute inset-4 border border-[#64ffda]/20 rounded-full"></div>
+
+                  {/* Inner Image Container */}
+                  <div className="absolute inset-8 rounded-full overflow-hidden bg-gradient-to-br from-[#64ffda]/20 to-[#111A28] p-2">
+                    <div className="relative w-full h-full rounded-full overflow-hidden bg-[#111A28]">
+                      <Image
+                        src="https://i.ibb.co/G2FLgFV/IMG-4649-03-2.jpg"
+                        alt="Raihan Miraj - Full Stack Developer"
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover rounded-full transition-transform duration-500 hover:scale-110"
+                        priority
+                      />
+
+                      {/* Circular Image Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#111A28]/30 via-transparent to-transparent rounded-full"></div>
+                    </div>
+                  </div>
+
+                  {/* Floating Decorative Elements */}
+                  <div className="absolute top-[15%] right-[15%] w-6 h-6 bg-[#64ffda]/60 rounded-full animate-pulse"></div>
+                  <div className="absolute bottom-[20%] left-[10%] w-4 h-4 bg-[#64ffda]/40 rounded-full animate-pulse delay-500"></div>
+                  <div className="absolute top-[45%] left-[5%] w-3 h-3 bg-[#64ffda]/80 rounded-full animate-pulse delay-1000"></div>
+                  <div className="absolute bottom-[45%] right-[8%] w-3 h-3 bg-[#64ffda]/50 rounded-full animate-pulse delay-700"></div>
+
+                  {/* Code Symbols Around Circular Image */}
+                  <div className="absolute top-[10%] left-[20%] text-[#64ffda]/40 font-mono text-lg animate-bounce delay-300">&lt;/&gt;</div>
+                  <div className="absolute bottom-[15%] right-[20%] text-[#64ffda]/40 font-mono text-lg animate-bounce delay-700">{'{ }'}</div>
+                  <div className="absolute top-[70%] left-[15%] text-[#64ffda]/40 font-mono text-sm animate-bounce delay-1000">( )</div>
+                  <div className="absolute top-[25%] right-[15%] text-[#64ffda]/40 font-mono text-sm animate-bounce delay-1300">[  ]</div>
+
+                  {/* Background Glow */}
+                  <div className="absolute inset-0 bg-[#64ffda]/10 rounded-full blur-3xl"></div>
+                </div>
+
+                {/* Professional Status Badge */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-[#111A28]/90 backdrop-blur-sm border border-[#64ffda]/30 rounded-full px-4 py-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-[#64ffda] rounded-full animate-pulse"></div>
+                      <span className="text-[#64ffda] font-mono text-xs">Available for work</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="ml-56"><Image src="/next.svg" alt="banner" width={300} height={300} className="opacity-60" /></div>
           </div>
+        </section>
 
-          {/* About */}
-          <div className="min-h-screen justify-center items-center md:px-2 mt-12 md:mt-0">
-            <div className="md:flex md:flex-row flex flex-col-reverse items-center justify-between h-full gap-5 md:gap-0 md:mt-0">
-              <div className="flex flex-col md:pl-24 gap-5 md:basis-[45%] md:ml-16">
-                <p className="text-sm md:text-lg text-center md:text-left   leading-loose px-3 md:px-0">Hello! I'm Raihan Miraj, a passionate software engineer. I develop web applications, mobile applications, and desktop applications. My core skill is based on JavaScript and I love to do most of the things using JavaScript. I love to make the web more open to the world. I'm doing BSc in Computer Science Engineering from Mymensingh Engineering College. I am available for any kind of job opportunity that suits my interests.</p>
-                <div className="flex gap-4 justify-center md:justify-start"><button className=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md bg-[#0A69DC]  border border-[#0A69DC]" style={{ borderColor: "#0A69DC" }}>Get resume</button><button className=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md border border-[#0A69DC]" style={{ borderColor: "#0A69DC" }}>My Skills</button></div>
-              </div>
-              <div className="w-64 h-64  md:w-64 md:h-72 rounded-xl overflow-hidden mx-12 md:mx-0"><Image className="object-cover" src="https://i.ibb.co/G2FLgFV/IMG-4649-03-2.jpg" alt="img" width={256} height={288} /></div>
-              <div className="flex items-center  md:-rotate-90 text-md  font-medium " style={{ color: "#0A69DC" }}>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
-                <span className="uppercase   border py-0 px-5 rounded-md font-bold">About me</span>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
+        {/* Skills Section */}
+        <section id="skills" className="h-screen py-20 px-5 bg-[#0a1628]">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-12 text-center">Skills & Technologies</h2>
+
+            {/* Skill Categories */}
+            <div className="flex justify-center mb-8">
+              <div className="flex bg-[#111A28] rounded-lg p-1">
+                {skillCategories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setActiveSkillCategory(category)}
+                    className={`px-6 py-2 rounded-md transition-colors ${activeSkillCategory === category
+                      ? 'bg-[#64ffda] text-[#111A28]'
+                      : 'text-gray-300 hover:text-white'
+                      }`}
+                  >
+                    {category}
+                  </button>
+                ))}
               </div>
             </div>
-          </div>
 
-          {/* Skills header and filter buttons (cards can be data-driven later) */
-          }
-          <div className="px-0">
-            <div className=" flex md:flex-row flex-col gap-5 items-center justify-between h-auto">
-              <div className="flex items-center md:-rotate-90 text-md  font-medium md:ml-5 " style={{ color: "#0A69DC" }}>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
-                <span className="uppercase   border py-0 px-5 rounded-md font-bold">Skills</span>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
-              </div>
-              <div className="w-full md:pr-32">
-                <div className="flex gap-3 md:gap-6 justify-center md:justify-start flex-wrap">
-                  <button className=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md border border-[#0A69DC]" style={{ borderColor: "#0A69DC" }}>Web</button>
-                  <button className=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md border border-[#0A69DC]  border border-[#0A69DC]" style={{ borderColor: "#0A69DC" }}>Other</button>
-                  <button className=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md border border-[#0A69DC]  border border-[#0A69DC]" style={{ borderColor: "#0A69DC" }}>Programming</button>
-                  <button className=" md:text-md text-sm font-medium md:px-5 px-3 py-2 md:py-3 rounded-md border border-[#0A69DC]" style={{ borderColor: "#0A69DC" }}>Tools</button>
+            {/* Skills Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+              {skillsData[activeSkillCategory as keyof typeof skillsData].map((skill, index) => (
+                <div
+                  key={index}
+                  className="bg-[#111A28] p-6 rounded-lg text-center hover:bg-[#1a2332] transition-colors group"
+                >
+                  <div className="w-12 h-12 mx-auto mb-4">
+                    <Image
+                      src={skill.img}
+                      alt={skill.title}
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-contain group-hover:scale-110 transition-transform"
+                    />
+                  </div>
+                  <h3 className="text-white font-semibold mb-2">{skill.title}</h3>
+                  <p className="text-gray-400 text-sm">{skill.level}</p>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
+        </section>
 
-          {/* Projects */}
-          <div className="px-0 min-h-screen flex items-center">
-            <div className=" flex md:flex-row flex-col gap-5 items-center justify-between h-auto mt-20 md:mt-0">
-              <div className="flex items-center md:-rotate-90 text-md  font-medium md:ml-5 " style={{ color: "#0A69DC" }}>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
-                <span className="uppercase   border py-0 px-5 rounded-md font-bold">Projects</span>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
-              </div>
-              <div className="w-full md:pr-32 px-5 md:px-0 ">
-                {projectsSlot}
-              </div>
-            </div>
+        {/* Projects Section */}
+        <section id="projects" className="h-screen py-20 px-5">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-12 text-center">Featured Projects</h2>
+            {projectsSlot}
           </div>
+        </section>
 
-          {/* Blog Preview */}
-          <div className="px-5 md:px-16 py-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Recent Blogs</h2>
+        {/* Blog Section */}
+        <section id="blogs" className="h-screen py-20 px-5 bg-[#0a1628]">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#64ffda] mb-12 text-center">Latest Blog Posts</h2>
             {blogsSlot}
           </div>
+        </section>
 
-          {/* Contact */}
-          <div className="min-h-screen flex justify-center items-center md:px-2 mt-12 md:mt-0 ">
-            <div className="md:flex md:flex-row flex flex-col-reverse items-center justify-between h-full gap-5 md:gap-0 md:mt-0">
-              <div className="grid md:grid-cols-2 md:ml-32 gap-12">
-                <div className="flex justify-center md:justify-start flex-col gap-5 md:w-[80%] px-5 md:px-0">
-                  <p>I am interested in working with any company that thinks my skill will be helpful for them. If you are looking for someone like me, please let me know. Or you can just 'say hi' to me.</p>
+        {/* Contact Section - Compact Professional Design */}
+        <section id="contact" className="h-screen py-12 px-5 relative overflow-hidden">
+          {/* Subtle background elements */}
+          <div className="absolute inset-0 bg-[#111A28]"></div>
+          <div className="absolute top-10 right-1/3 w-32 h-32 bg-[#64ffda]/8 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-10 left-1/3 w-24 h-24 bg-[#64ffda]/5 rounded-full blur-xl"></div>
+          
+          <div className="max-w-6xl mx-auto relative z-10 h-full flex flex-col">
+            {/* Compact Section Header */}
+            <div className="text-center mb-8">
+              <span className="text-[#64ffda] font-mono text-sm mb-1 block">04.</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Get In Touch</h2>
+              <div className="w-20 h-[1px] bg-[#64ffda]/60 mx-auto mb-4"></div>
+              <p className="text-gray-300 max-w-xl mx-auto text-base">
+                Let&apos;s discuss your next project or just say hello!
+              </p>
+            </div>
+
+            {/* Compact Golden Ratio Layout */}
+            <div className="flex-1 grid lg:grid-cols-[65%_35%] gap-8 items-start">
+              {/* Left Side - Compact Contact Form */}
+              <div className="relative">
+                <div className="bg-gray-800/40 rounded-xl p-6 border border-gray-700/40">
                   <ContactForm />
                 </div>
-                <div className="flex flex-col gap-3 text-center md:text-left">
-                  <div>
-                    <h1 className="text-2xl font-bold">Email</h1>
-                    <p>rsnmiraj@gmail.com<span className="text-slate-500"> (Recommended)</span></p>
-                  </div>
-                  <div>
-                    <h1 className="text-2xl font-bold">Skype</h1>
-                    <p>raihanmiraj<span className="text-slate-500"> (Recommended)</span></p>
-                  </div>
-                  <div>
-                    <h1 className="text-2xl font-bold">Social</h1>
-                    <p>Twitter - @raihanmiraj<span className="text-slate-500"> (Slow response)</span></p>
-                  </div>
-                  <div>
-                    <h1 className="text-2xl font-bold">Address</h1>
-                    <p>Kandirpar, Cumilla</p>
+              </div>
+
+              {/* Right Side - Compact Contact Info */}
+              <div className="space-y-4">
+                {/* Contact Methods - Compact */}
+                <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700/30">
+                  <h3 className="text-lg font-semibold text-[#64ffda] mb-4 flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-[#64ffda] rounded-full"></div>
+                    Contact Info
+                  </h3>
+                  
+                  <div className="space-y-3">
+                    {/* Email - Compact */}
+                    <div className="flex items-center gap-3 text-sm">
+                      <div className="w-8 h-8 bg-[#64ffda]/10 rounded-lg flex items-center justify-center">
+                        <svg className="w-4 h-4 text-[#64ffda]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-gray-400 text-xs">Email</p>
+                        <p className="text-white text-sm font-medium">hello@raihanmiraj.dev</p>
+                      </div>
+                    </div>
+
+                    {/* Location - Compact */}
+                    <div className="flex items-center gap-3 text-sm">
+                      <div className="w-8 h-8 bg-[#64ffda]/10 rounded-lg flex items-center justify-center">
+                        <svg className="w-4 h-4 text-[#64ffda]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-gray-400 text-xs">Location</p>
+                        <p className="text-white text-sm font-medium">Dhaka, Bangladesh</p>
+                      </div>
+                    </div>
+
+                    {/* Status - Compact */}
+                    <div className="flex items-center gap-3 text-sm">
+                      <div className="w-8 h-8 bg-[#64ffda]/10 rounded-lg flex items-center justify-center">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      </div>
+                      <div>
+                        <p className="text-gray-400 text-xs">Status</p>
+                        <p className="text-white text-sm font-medium">Available</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center  md:-rotate-90 text-md  font-medium " style={{ color: "#0A69DC" }}>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
-                <span className="uppercase   border py-0 px-5 rounded-md font-bold">Contact</span>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M904 476H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z" /></svg>
+
+                {/* Social Links - Compact Grid */}
+                <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700/30">
+                  <h3 className="text-lg font-semibold text-[#64ffda] mb-4 flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-[#64ffda] rounded-full"></div>
+                    Connect
+                  </h3>
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    <a href="https://github.com/itznur07" target="_blank" rel="noreferrer" className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700/40 transition-colors text-sm group">
+                      <div className="w-6 h-6 bg-[#64ffda]/10 rounded-md flex items-center justify-center group-hover:bg-[#64ffda]/20">
+                        <svg className="w-3 h-3 text-[#64ffda]" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                      </div>
+                      <span className="text-gray-300 group-hover:text-white text-xs">GitHub</span>
+                    </a>
+                    
+                    <a href="https://www.linkedin.com/in/itznur07" target="_blank" rel="noreferrer" className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700/40 transition-colors text-sm group">
+                      <div className="w-6 h-6 bg-[#64ffda]/10 rounded-md flex items-center justify-center group-hover:bg-[#64ffda]/20">
+                        <svg className="w-3 h-3 text-[#64ffda]" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                      </div>
+                      <span className="text-gray-300 group-hover:text-white text-xs">LinkedIn</span>
+                    </a>
+                    
+                    <a href="https://youtube.com/@itznur07" target="_blank" rel="noreferrer" className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700/40 transition-colors text-sm group">
+                      <div className="w-6 h-6 bg-[#64ffda]/10 rounded-md flex items-center justify-center group-hover:bg-[#64ffda]/20">
+                        <svg className="w-3 h-3 text-[#64ffda]" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                      </div>
+                      <span className="text-gray-300 group-hover:text-white text-xs">YouTube</span>
+                    </a>
+                    
+                    <a href="mailto:hello@raihanmiraj.dev" className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-700/40 transition-colors text-sm group">
+                      <div className="w-6 h-6 bg-[#64ffda]/10 rounded-md flex items-center justify-center group-hover:bg-[#64ffda]/20">
+                        <svg className="w-3 h-3 text-[#64ffda]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <span className="text-gray-300 group-hover:text-white text-xs">Email</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Response Promise - Compact */}
+                <div className="text-center p-3 bg-[#64ffda]/5 rounded-lg border border-[#64ffda]/20">
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <div className="w-1.5 h-1.5 bg-[#64ffda] rounded-full animate-pulse"></div>
+                    <span className="text-[#64ffda] font-mono text-xs">Quick Response</span>
+                  </div>
+                  <p className="text-gray-400 text-xs">Usually within 24 hours</p>
+                </div>
               </div>
             </div>
           </div>
+        </section>
 
-          <footer className="bg-gray-700 py-8 flex flex-col md:flex-row justify-center items-center  md:justify-between md:px-[8%]">
-            <div className="flex gap-5">
-              <div className="relative inline-block "><div className="px-5 py-2 bg-gray-800"><span>ধন্যবাদ</span></div><div className=" absolute bg-red-500 h-[2px] bottom-0 w-full" /></div>
-              <div className="relative inline-block "><div className="px-5 py-2 bg-gray-800"><span>Thanks</span></div><div className="absolute bg-red-500 h-[2px] bottom-0 w-[70%]" /></div>
-              <div className="relative inline-block "><div className="px-5 py-2 bg-gray-800"><span>ਧੰਨਵਾਦ</span></div><div className="absolute bg-red-500 h-[2px] bottom-0 w-[30%]" /></div>
+        {/* Footer */}
+        <footer className="bg-[#0a1628] py-8 px-5 border-t border-gray-800">
+          <div className="max-w-6xl mx-auto text-center">
+            <div className="flex justify-center space-x-6 mb-6">
+              <a href="https://github.com/itznur07" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#64ffda] transition-colors">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/in/itznur07" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#64ffda] transition-colors">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+              </a>
+              <a href="https://youtube.com/@itznur07" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#64ffda] transition-colors">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
             </div>
-            <div>
-              <div className="flex items-center gap-3">
-                <ul className="flex gap-2">
-                  <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/zonayedpca/zonayed.me"><p className="flex items-center gap-1"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 576 512" className="w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" /></svg> <span>Star</span></p></a></li>
-                  <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/zonayedpca/zonayed.me"><p className="flex items-center gap-1"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 384 512" className="w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg"><path d="M384 144c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 36.4 24.3 67.1 57.5 76.8-.6 16.1-4.2 28.5-11 36.9-15.4 19.2-49.3 22.4-85.2 25.7-28.2 2.6-57.4 5.4-81.3 16.9v-144c32.5-10.2 56-40.5 56-76.3 0-44.2-35.8-80-80-80S0 35.8 0 80c0 35.8 23.5 66.1 56 76.3v199.3C23.5 365.9 0 396.2 0 432c0 44.2 35.8 80 80 80s80-35.8 80-80c0-34-21.2-63.1-51.2-74.6 3.1-5.2 7.8-9.8 14.9-13.4 16.2-8.2 40.4-10.4 66.1-12.8 42.2-3.9 90-8.4 118.2-43.4 14-17.4 21.1-39.8 21.6-67.9 31.6-10.8 54.4-40.7 54.4-75.9zM80 64c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16zm0 384c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm224-320c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16z" /></svg><span>Fork</span></p></a></li>
-                </ul>
-                <p className="flex gap-2 items-center"><span> By Me </span><span className="rounded-lg p-1 bg-gray-800"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 320 512" className="h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg"><path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z" /></svg></span></p>
-              </div>
+            <div className="text-gray-400 text-sm">
+              <p>&copy; 2024 Raihan Miraj. All rights reserved.</p>
+              <p className="mt-2">Built with Next.js & Tailwind CSS</p>
             </div>
-          </footer>
-        </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
 }
-
-

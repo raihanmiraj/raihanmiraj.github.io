@@ -6,13 +6,13 @@ if (!MONGODB_URI) {
   throw new Error("MONGODB_URI is not set. Add it to .env.local");
 }
 
-let cached = (global as any).mongoose as {
+let cached = (global as { mongoose?: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } }).mongoose as {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
 };
 
 if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+  cached = (global as { mongoose?: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } }).mongoose = { conn: null, promise: null };
 }
 
 export async function connectToDatabase() {

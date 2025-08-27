@@ -1,18 +1,20 @@
+import Link from "next/link";
+
 export const revalidate = 60;
 
 import { headers } from "next/headers";
 
-function getBaseUrl() {
+async function getBaseUrl() {
   const envBase = process.env.NEXT_PUBLIC_BASE_URL || "";
   if (envBase) return envBase;
-  const h = headers();
+  const h = await headers();
   const host = h.get("host");
   const protocol = h.get("x-forwarded-proto") || "http";
   return host ? `${protocol}://${host}` : "";
 }
 
 async function getData() {
-  const base = getBaseUrl();
+  const base = await getBaseUrl();
   const [blogsRes, projectsRes, contactsRes] = await Promise.all([
     fetch(`${base}/api/blogs`, { cache: "no-store" }),
     fetch(`${base}/api/projects`, { cache: "no-store" }),
@@ -40,7 +42,7 @@ export default async function Dashboard() {
       <section className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">Top Viewed Blogs</h2>
-          <a className="text-sm text-blue-400" href="/dashboard/blogs">Manage Blogs</a>
+          <Link className="text-sm text-blue-400" href="/dashboard/blogs">Manage Blogs</Link>
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           {topBlogs.map((b) => (

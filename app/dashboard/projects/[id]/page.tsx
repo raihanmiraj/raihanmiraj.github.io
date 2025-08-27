@@ -10,7 +10,7 @@ export default function EditProject() {
 
   useEffect(() => {
     fetch(`/api/projects`).then(r => r.json()).then((list) => {
-      const p = list.find((x: any) => x._id === id);
+      const p = list.find((x: { _id: string; title?: string; description?: string; coverImage?: string; liveUrl?: string; githubUrl?: string; technologies?: string[] }) => x._id === id);
       if (!p) return;
       setForm({
         title: p.title || "",
