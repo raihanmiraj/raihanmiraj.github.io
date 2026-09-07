@@ -1,0 +1,2 @@
+"use client";
+export default function ErrorPage({reset}:{error:Error;reset:()=>void}){return <main className="archive"><div className="container"><p className="eyebrow">Something went wrong</p><h1 className="page-title">This page could not load.</h1><p className="archive-intro">Please try again. No private error details are shown here.</p><button className="button" onClick={reset}>Try again</button></div></main>}

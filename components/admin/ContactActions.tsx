@@ -1,0 +1,3 @@
+"use client";
+import { useRouter } from "next/navigation";
+export function ContactActions({id,read}:{id:string;read:boolean}){const router=useRouter();async function update(method:string,body?:object){if(method==="DELETE"&&!confirm("Delete this message?"))return;await fetch(`/api/contacts/${id}`,{method,headers:body?{"Content-Type":"application/json"}:undefined,body:body?JSON.stringify(body):undefined});router.refresh();}return <div className="row-actions"><button onClick={()=>update("PATCH",{read:!read})}>Mark {read?"unread":"read"}</button><button className="danger-link" onClick={()=>update("DELETE")}>Delete</button></div>}

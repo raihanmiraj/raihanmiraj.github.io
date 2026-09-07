@@ -1,31 +1,42 @@
-import jwt from "jsonwebtoken";
+import "server-only";
 import bcrypt from "bcryptjs";
+import { cookies } from "next/headers";
+import { SignJWT, jwtVerify } from "jose";
+import { redirect } from "next/navigation";
 
-const JWT_SECRET = process.env.JWT_SECRET || "";
+export const AUTH_COOKIE = "portfolio_session";
+export type Session = { sub: string; email: string; role: "admin" };
 
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET is not set. Add it to .env.local");
+function secret() {
+  const value = process.env.JWT_SECRET;
+  if (!value || value.length < 32) throw new Error("JWT_SECRET must be at least 32 characters");
+  return new TextEncoder().encode(value);
 }
 
-export function signJwt(payload: object, expiresIn: string = "7d") {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn } as jwt.SignOptions);
+export async function signSession(payload: Session) {
+  return new SignJWT({ email: payload.email, role: payload.role })
+    .setProtectedHeader({ alg: "HS256" }).setSubject(payload.sub)
+    .setIssuedAt().setExpirationTime("7d").sign(secret());
 }
 
-export function verifyJwt<T = object>(token: string): T | null {
+export async function verifySession(token?: string): Promise<Session | null> {
+  if (!token) return null;
   try {
-    return jwt.verify(token, JWT_SECRET) as T;
-  } catch {
-    return null;
-  }
+    const { payload } = await jwtVerify(token, secret());
+    if (payload.role !== "admin" || !payload.sub || typeof payload.email !== "string") return null;
+    return { sub: payload.sub, email: payload.email, role: "admin" };
+  } catch { return null; }
 }
 
-export async function hashPassword(plain: string) {
-  const salt = await bcrypt.genSalt(10);
-  return bcrypt.hash(plain, salt);
+export async function getCurrentUser() {
+  return verifySession((await cookies()).get(AUTH_COOKIE)?.value);
 }
-
-export async function comparePassword(plain: string, hash: string) {
-  return bcrypt.compare(plain, hash);
+export async function requireAdmin() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/login");
+  return user;
 }
+export const hashPassword = (value: string) => bcrypt.hash(value, 12);
+export const comparePassword = (value: string, hash: string) => bcrypt.compare(value, hash);
 
 

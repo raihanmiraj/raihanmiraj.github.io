@@ -1,45 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-export default function LoginPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    const res = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
-    setLoading(false);
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      setError(data.error || "Login failed");
-      return;
-    }
-    router.push("/dashboard");
-  }
-
-  return (
-    <main className="bg-[#111A28] text-white min-h-screen flex items-center justify-center p-6">
-      <form onSubmit={onSubmit} className="bg-gray-800 p-6 rounded w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-bold">Admin Login</h1>
-        {error ? <div className="text-red-400 text-sm">{error}</div> : null}
-        <div className="space-y-2">
-          <label className="block text-sm">Email</label>
-          <input className="w-full px-3 py-2 rounded bg-gray-900 outline-none" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div className="space-y-2">
-          <label className="block text-sm">Password</label>
-          <input type="password" className="w-full px-3 py-2 rounded bg-gray-900 outline-none" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <button disabled={loading} className="w-full py-2 bg-[#0A69DC] rounded font-medium">{loading ? "Logging in..." : "Login"}</button>
-      </form>
-    </main>
-  );
-}
-
-
+export default function LoginPage(){const router=useRouter();const [error,setError]=useState("");const [loading,setLoading]=useState(false);async function submit(e:React.FormEvent<HTMLFormElement>){e.preventDefault();setLoading(true);setError("");const data=Object.fromEntries(new FormData(e.currentTarget));const response=await fetch("/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const result=await response.json().catch(()=>({}));setLoading(false);if(!response.ok){setError(result.error||"Invalid credentials");return;}router.push("/dashboard");router.refresh();}return <main className="login-shell"><form className="login-card" onSubmit={submit}><Link className="wordmark" href="/">RM<span>.</span></Link><p className="eyebrow">Secure administration</p><h1>Sign in</h1><label>Email<input type="email" name="email" autoComplete="email" required/></label><label>Password<input type="password" name="password" autoComplete="current-password" minLength={8} required/></label>{error?<p className="form-error" role="alert">{error}</p>:null}<button className="button" disabled={loading}>{loading?"Signing in…":"Sign in"}</button></form></main>}

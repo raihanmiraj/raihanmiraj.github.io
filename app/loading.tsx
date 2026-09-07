@@ -1,0 +1,1 @@
+export default function Loading(){return <main className="archive" aria-busy="true"><div className="container"><p className="eyebrow">Loading</p><div className="empty">Preparing the page…</div></div></main>}

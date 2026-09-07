@@ -1,31 +1,17 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI || "";
-
-if (!MONGODB_URI) {
-  throw new Error("MONGODB_URI is not set. Add it to .env.local");
-}
-
-let cached = (global as { mongoose?: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } }).mongoose as {
-  conn: typeof mongoose | null;
-  promise: Promise<typeof mongoose> | null;
-};
-
-if (!cached) {
-  cached = (global as { mongoose?: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } }).mongoose = { conn: null, promise: null };
-}
+type Cache = { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null };
+const globalWithMongoose = globalThis as typeof globalThis & { mongooseCache?: Cache };
+const cache = globalWithMongoose.mongooseCache ?? { conn: null, promise: null };
+globalWithMongoose.mongooseCache = cache;
 
 export async function connectToDatabase() {
-  if (cached.conn) return cached.conn;
-  if (!cached.promise) {
-    cached.promise = mongoose
-      .connect(MONGODB_URI, {
-        dbName: process.env.MONGODB_DB || undefined,
-      })
-      .then((m) => m);
-  }
-  cached.conn = await cached.promise;
-  return cached.conn;
+  const uri = process.env.MONGODB_URI;
+  if (!uri) throw new Error("MONGODB_URI is not configured");
+  if (cache.conn) return cache.conn;
+  cache.promise ??= mongoose.connect(uri, { dbName: process.env.MONGODB_DB || undefined });
+  cache.conn = await cache.promise;
+  return cache.conn;
 }
 
 

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ConditionalLayout from "./components/ConditionalLayout";
-import LoadingBar from "./components/LoadingBar";
+import { profile } from "@/data/profile";
 import "./globals.css";
+import "./v3.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Raihan Miraj | Full Stack Developer",
-  description: "Portfolio, projects and blogs by Raihan Miraj",
+  metadataBase: new URL(profile.url),
+  title: { default: "Raihan Miraj — AI SaaS Product Engineer", template: "%s — Raihan Miraj" },
+  description: "Full Stack Developer building AI-powered SaaS products, multi-tenant systems, payments, APIs, and polished product experiences.",
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", siteName: "Raihan Miraj", locale: "en_US" },
+  twitter: { card: "summary_large_image", creator: "@RaihanMiraj" },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -30,7 +36,6 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LoadingBar />
         <ConditionalLayout>
           {children}
         </ConditionalLayout>

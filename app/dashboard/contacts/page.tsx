@@ -1,37 +1,17 @@
-export const revalidate = 0;
-
-import { headers } from "next/headers";
-
-async function getBaseUrl() {
-  const envBase = process.env.NEXT_PUBLIC_BASE_URL || "";
-  if (envBase) return envBase;
-  const h = await headers();
-  const host = h.get("host");
-  const protocol = h.get("x-forwarded-proto") || "http";
-  return host ? `${protocol}://${host}` : "";
-}
-
-async function getContacts() {
-  const base = await getBaseUrl();
-  const res = await fetch(`${base}/api/contacts`, { cache: "no-store" });
-  return res.json();
-}
-
-export default async function DashboardContacts() {
-  const contacts = await getContacts();
+import { getContacts } from "@/lib/data";
+import { ContactsInbox } from "@/components/admin/ContactsInbox";
+export const dynamic = "force-dynamic";
+export default async function ContactsPage() {
+  const items = await getContacts();
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Contacts</h1>
-      <div className="grid gap-3">
-        {contacts.map((c: { _id: string; name: string; email: string; message: string }) => (
-          <div key={c._id} className="p-4 bg-gray-800 rounded">
-            <div className="font-semibold">{c.name} ({c.email})</div>
-            <div className="text-sm mt-1">{c.message}</div>
-          </div>
-        ))}
+    <>
+      <div className="dash-heading">
+        <div>
+          <p className="eyebrow">Inbox</p>
+          <h1>Contacts</h1>
+        </div>
       </div>
-    </div>
+      <ContactsInbox items={items} />
+    </>
   );
 }
-
-
