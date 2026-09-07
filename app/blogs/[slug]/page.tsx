@@ -1,9 +1,111 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getBlog, readingTime } from "@/lib/data";
+import { getBlog, getBlogs, readingTime } from "@/lib/data";
 import { EditorJsRenderer } from "@/components/blog/EditorJsRenderer";
 import { absoluteUrl, site } from "@/lib/site";
-export const dynamic = "force-dynamic";
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const article = await getBlog((await params).slug); if (!article) return {}; const description = article.metaDescription || article.excerpt; return { title: article.seoTitle || article.title, description, alternates: { canonical: article.canonicalUrl || `/blogs/${article.slug}` }, openGraph: { type: "article", title: article.seoTitle || article.title, description, publishedTime: article.publishedAt, modifiedTime: article.updatedAt, images: article.socialImage || article.coverImage ? [article.socialImage || article.coverImage!] : [] } }; }
-export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) { const article = await getBlog((await params).slug); if (!article) notFound(); const date = article.publishedAt || article.createdAt; const jsonLd = { "@context":"https://schema.org", "@type":"BlogPosting", headline:article.title, description:article.excerpt, datePublished:date, dateModified:article.updatedAt, mainEntityOfPage:absoluteUrl(`/blogs/${article.slug}`), author:{"@type":"Person",name:site.name}, image:article.coverImage }; return <main id="main"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g,"\\u003c") }}/><header className="case-hero"><div className="container"><p className="eyebrow">Journal</p><h1>{article.title}</h1><p className="case-summary">{article.excerpt}</p><div className="article-meta">{date ? <time dateTime={date}>{new Intl.DateTimeFormat("en",{dateStyle:"long"}).format(new Date(date))}</time>:null}<span>{readingTime(article.content)} min read</span>{article.tags.map(tag=><span className="tag" key={tag}>{tag}</span>)}</div></div></header>{article.coverImage ? <div className="container"><div className="case-cover"><Image src={article.coverImage} alt={article.coverImageAlt || article.title} fill priority sizes="100vw"/></div></div>:null}<section className="section"><EditorJsRenderer content={article.content} format={article.contentFormat}/></section><section className="section"><div className="prose"><p className="eyebrow">About the author</p><h2>Raihan Islam Miraj</h2><p>Full Stack Developer and AI SaaS Product Engineer based in Dhaka, Bangladesh.</p></div></section></main>; }
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const articles = await getBlogs();
+  return articles.map((article) => ({ slug: article.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const article = await getBlog((await params).slug);
+  if (!article) return {};
+  const description = article.metaDescription || article.excerpt;
+  return {
+    title: article.seoTitle || article.title,
+    description,
+    alternates: { canonical: article.canonicalUrl || `/blogs/${article.slug}` },
+    openGraph: {
+      type: "article",
+      title: article.seoTitle || article.title,
+      description,
+      publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt,
+      images:
+        article.socialImage || article.coverImage
+          ? [article.socialImage || article.coverImage!]
+          : [],
+    },
+  };
+}
+
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const article = await getBlog((await params).slug);
+  if (!article) notFound();
+  const date = article.publishedAt || article.createdAt;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: date,
+    dateModified: article.updatedAt,
+    mainEntityOfPage: absoluteUrl(`/blogs/${article.slug}`),
+    author: { "@type": "Person", name: site.name },
+    image: article.coverImage,
+  };
+  return (
+    <main id="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <header className="case-hero">
+        <div className="container">
+          <p className="eyebrow">Journal</p>
+          <h1>{article.title}</h1>
+          <p className="case-summary">{article.excerpt}</p>
+          <div className="article-meta">
+            {date ? (
+              <time dateTime={date}>
+                {new Intl.DateTimeFormat("en", { dateStyle: "long" }).format(new Date(date))}
+              </time>
+            ) : null}
+            <span>{readingTime(article.content)} min read</span>
+            {article.tags.map((tag) => (
+              <span className="tag" key={tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </header>
+      {article.coverImage ? (
+        <div className="container">
+          <div className="case-cover">
+            <Image
+              src={article.coverImage}
+              alt={article.coverImageAlt || article.title}
+              fill
+              priority
+              sizes="100vw"
+            />
+          </div>
+        </div>
+      ) : null}
+      <section className="section">
+        <EditorJsRenderer content={article.content} format={article.contentFormat} />
+      </section>
+      <section className="section">
+        <div className="prose">
+          <p className="eyebrow">About the author</p>
+          <h2>Raihan Islam Miraj</h2>
+          <p>Full Stack Developer and AI SaaS Product Engineer based in Dhaka, Bangladesh.</p>
+        </div>
+      </section>
+    </main>
+  );
+}

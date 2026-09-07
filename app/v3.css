@@ -684,6 +684,14 @@ summary {
   color: var(--muted);
   font-size: 11px;
 }
+.personal-media figcaption a {
+  color: var(--accent);
+  font-size: 12px;
+  width: fit-content;
+}
+.personal-media figcaption a:hover {
+  text-decoration: underline;
+}
 .photo-card .media-image {
   min-height: 360px;
   height: 100%;

@@ -141,6 +141,11 @@ export function MediaCard({
       <figcaption>
         <span>{title}</span>
         <small>{video?.description || photo?.category}</small>
+        {video ? (
+          <a href={video.url} target="_blank" rel="noreferrer">
+            Watch on YouTube ↗
+          </a>
+        ) : null}
       </figcaption>
       {open && (
         <MediaViewer

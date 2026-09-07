@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import ConditionalLayout from "./components/ConditionalLayout";
 import { profile } from "@/data/profile";
 import "./globals.css";
@@ -36,6 +37,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <NextTopLoader color="#d6ff70" height={3} showSpinner={false} crawlSpeed={200} />
         <ConditionalLayout>
           {children}
         </ConditionalLayout>

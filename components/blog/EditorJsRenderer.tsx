@@ -14,7 +14,31 @@ export function EditorJsRenderer({ content, format }: { content: EditorData | st
     if (block.type === "checklist") { const items = Array.isArray(d.items) ? d.items as Record<string, unknown>[] : []; return <ul className="checklist" key={block.id || index}>{items.map((item, i) => <li key={i}>[{item.checked ? "✓" : " "}] {clean(item.text)}</li>)}</ul>; }
     if (block.type === "table") { const rows = Array.isArray(d.content) ? d.content as unknown[][] : []; return <div className="table-wrap" key={block.id || index}><table><tbody>{rows.map((row, ri) => <tr key={ri}>{row.map((cell, ci) => <td key={ci}>{clean(cell)}</td>)}</tr>)}</tbody></table></div>; }
     if (block.type === "image") { const file = d.file as Record<string, unknown> | undefined; const url = String(file?.url || d.url || ""); return url ? <figure key={block.id || index}><Image src={url} alt={clean(d.caption) || "Article image"} width={1200} height={750}/>{d.caption ? <figcaption>{clean(d.caption)}</figcaption> : null}</figure> : null; }
-    if (block.type === "embed") { const service = String(d.service || ""); const embed = String(d.embed || ""); return service === "youtube" && embed.startsWith("https://www.youtube.com/embed/") ? <figure className="video" key={block.id || index}><iframe src={embed} title={clean(d.caption) || "Embedded YouTube video"} loading="lazy" allowFullScreen/></figure> : null; }
+    if (block.type === "embed") {
+      const service = String(d.service || "");
+      const embed = String(d.embed || "");
+      const caption = clean(d.caption);
+      if (service !== "youtube" || !embed.startsWith("https://www.youtube.com/embed/")) return null;
+      const watchUrl = embed.replace("https://www.youtube.com/embed/", "https://www.youtube.com/watch?v=");
+      return (
+        <figure className="video" key={block.id || index}>
+          <iframe
+            src={embed.replace("https://www.youtube.com/embed/", "https://www.youtube-nocookie.com/embed/")}
+            title={caption || "Embedded YouTube video"}
+            loading="lazy"
+            allow="encrypted-media; picture-in-picture; fullscreen"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+          <figcaption>
+            {caption ? <span>{caption}</span> : null}
+            <a href={watchUrl} target="_blank" rel="noreferrer">
+              Watch on YouTube ↗
+            </a>
+          </figcaption>
+        </figure>
+      );
+    }
     return null;
   })}</div>;
 }

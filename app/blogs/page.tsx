@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Writing by Raihan Miraj about AI product architecture, SaaS engineering, and full-stack systems.",
   alternates: { canonical: "/blogs" },
 };
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 export default async function BlogsPage() {
   const articles = await getBlogs();
   return (
